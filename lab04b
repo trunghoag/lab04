@@ -1,0 +1,68 @@
+#Q1
+# Function to read and display content from a text file line by line
+def read_and_display_poem():
+    with open('poem.txt', 'r') as file:
+        for line in file:
+            print(line, end='')
+
+# Function to count lines not starting with 'T' in a text file
+def count_lines_not_starting_with_T():
+    count = 0
+    with open('story.txt', 'r') as file:
+        for line in file:
+            if not line.strip().startswith('T'):
+                count += 1
+    print("No of lines not starting with 'T' =", count)
+
+# Call the functions
+read_and_display_poem()
+count_lines_not_starting_with_T()
+
+#Q2
+#1.
+def count_total_words(file_path):
+    with open(file_path, 'r') as file:
+        text = file.read()
+        words = text.split()
+        return len(words)
+
+#2.
+def display_words():
+    with open('story.txt', 'r') as file:
+        for line in file:
+            words = line.split()
+            for word in words:
+                if len(word) < 4:
+                    print(word)
+
+#Q3
+# Function to count uppercase characters in a text file
+def count_uppercase_chars(file_path):
+    with open(file_path, 'r') as file:
+        text = file.read()
+    return sum(1 for char in text if char.isupper())
+
+# Function to count specific words in a text file
+def count_specific_words(file_path, *words):
+    with open(file_path, 'r') as file:
+        text = file.read().lower()
+    return sum(text.count(word) for word in words)
+
+# Test the functions
+file_path = 'article.txt'
+uppercase_count = count_uppercase_chars(file_path)
+specific_words_count = count_specific_words(file_path, 'this', 'these')
+
+print(uppercase_count)
+print(specific_words_count)
+
+#Q4
+def hash_display():
+    with open("matter.txt", "r") as file:
+        content = file.read().replace("", "#")
+    print(content)
+
+def JTOI():
+    with open("WORDS.TXT", "r") as file:
+        content = file.read().replace("J", "I")
+    print(content)

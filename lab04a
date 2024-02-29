@@ -1,0 +1,100 @@
+# Q1
+# 1.Create a new empty text file named ‘sales.txt’
+with open('sales.txt', 'w') as file:
+    pass
+
+# 2.Create File with a DateTime
+import datetime
+current_time = datetime.datetime.now()
+file_name = f"sales_{current_time.strftime('%Y-%m-%d_%H-%M-%S')}.txt"
+with open(file_name, 'w') as file:
+    pass
+
+# 3.Create a file with Permission
+with open('sales_permission.txt', 'w') as file:
+    file.write("This file has special permissions.")
+
+#Q2
+# 1. Write to a new file
+with open('new_file.txt', 'w') as file:
+    file.write('Writing content into the file\n')
+    file.write('Write to a Text file in Python\n')
+
+# 2. Writing To An Existing File
+with open('existing_file.txt', 'a') as file:
+    file.write('Appending content to an existing file\n')
+
+# 3. Write a list of lines to a file
+lines = ['Line 1\n', 'Line 2\n', 'Line 3\n']
+with open('lines_file.txt', 'w') as file:
+    file.writelines(lines)
+
+#Q3
+file = open("example.txt", "r")
+
+# 1.Seek the beginning of the file
+file.seek(0)
+
+# 2.Seek the end of the file
+file.seek(0, 2)
+
+# 3.Seek from the current position
+file.seek(5, 1)
+
+# 4.Seek backward with negative offset
+file.seek(-3, 1)
+
+# 5.Use tell() function to get file handle position
+position = file.tell()
+print("Current position:", position)
+
+#Q4
+import os
+import datetime
+
+def rename_file(file_path, new_name):
+    if os.path.exists(file_path):
+        os.rename(file_path, new_name)
+        print(f"File renamed successfully to {new_name}")
+    else:
+        print("File does not exist.")
+
+def rename_multiple_files(file_list):
+    for file_path, new_name in file_list:
+        rename_file(file_path, new_name)
+
+def rename_files_in_folder(folder_path, new_names):
+    for file_name, new_name in new_names.items():
+        file_path = os.path.join(folder_path, file_name)
+        rename_file(file_path, os.path.join(folder_path, new_name))
+
+def rename_files_with_timestamp(file_list):
+    for file_path in file_list:
+        timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+        new_name = f"{os.path.splitext(file_path)[0]}_{timestamp}{os.path.splitext(file_path)[1]}"
+        rename_file(file_path, new_name)
+
+def rename_file_extension(file_path, new_extension):
+    new_name = os.path.splitext(file_path)[0] + new_extension
+    rename_file(file_path, new_name)
+
+def rename_and_move_file(file_path, new_path):
+    os.rename(file_path, new_path)
+    print(f"File moved and renamed successfully to {new_path}")
+
+# Example Usage
+rename_file("example.txt", "new_example.txt")
+
+files_to_rename = [("file1.txt", "new_file1.txt"), ("file2.txt", "new_file2.txt")]
+rename_multiple_files(files_to_rename)
+
+folder_path = "folder/"
+new_names = {"file3.txt": "new_file3.txt", "file4.txt": "new_file4.txt"}
+rename_files_in_folder(folder_path, new_names)
+
+files_with_timestamp = ["file5.txt", "file6.txt"]
+rename_files_with_timestamp(files_with_timestamp)
+
+rename_file_extension("file7.txt", ".dat")
+
+rename_and_move_file("file8.txt", "new_folder/file8.txt")
